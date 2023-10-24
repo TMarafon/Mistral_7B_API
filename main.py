@@ -60,6 +60,6 @@ async def example():
 
 @app.get("/{input}")
 async def inference(input):
-    prompt = """[INST] {0} [/INST]""".format(input)
-    return StreamingResponse(streamInference(prompt), media_type="text/plain")
-
+    #prompt = """[INST] {0} [/INST]""".format(input)
+    #return StreamingResponse(streamInference(prompt), media_type="text/plain")
+    return qa({"query": input})
