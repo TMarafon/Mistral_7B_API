@@ -9,7 +9,7 @@ async def streamInference(prompt):
         token=os.environ.get("HF_TOKEN")
     )
     
-    res = client.text_generation(prompt, max_new_tokens=200, stream=True)
+    res = client.text_generation(prompt, max_new_tokens=200, stream=True, return_full_text=False)
     for r in res: 
       yield r
 
