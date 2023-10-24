@@ -36,7 +36,7 @@ def prepareVectorDatabase():
     compressor = LLMChainExtractor.from_llm(llm)
     compression_retriever = ContextualCompressionRetriever(
         base_compressor=compressor,
-        base_retriever=vectordb.as_retriever(search_type = "mmr")
+        base_retriever=db.as_retriever(search_type = "mmr")
     )
     global qa 
     qa = RetrievalQA.from_chain_type(
