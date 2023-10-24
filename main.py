@@ -13,7 +13,7 @@ client = InferenceClient(
 
 prompt = """[INST] What is your favourite condiment?  [/INST]"""
 
-res = client.text_generation(prompt, max_new_tokens=95, details=True)
+res = client.text_generation(prompt, max_new_tokens=95)
 print(res)
 #    return {"message": res}
 
