@@ -40,7 +40,7 @@ def prepareVectorDatabase():
         retriever=retriever, 
         return_source_documents=True
     )
-    return "Ready"
+    return qa({"query": "Who is Thiago Marafon?"})
 
 
 async def streamInference(prompt):
