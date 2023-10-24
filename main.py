@@ -19,10 +19,11 @@ import os
 
 def prepareVectorDatabase():
     loader = PyPDFLoader(
-        'files/Linkedin.pdf'    
+        'files/Linkedin.pdf',
+        'files/Thiago_Marafon_-_Senior_Engineering_Manager.pdf'
     )
     documents = loader.load()
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=300, chunk_overlap=100)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=100)
     docs = text_splitter.split_documents(documents)
     embeddings = HuggingFaceHubEmbeddings()
     db = Chroma.from_documents(docs, embeddings)
