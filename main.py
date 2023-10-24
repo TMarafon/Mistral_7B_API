@@ -8,12 +8,12 @@ app = FastAPI()
 async def root():
     client = InferenceClient(
         model="mistralai/Mistral-7B-Instruct-v0.1",
-        token=os.environ.get("HF_TOKEN")
+        token=os.environ.get("HF_API_KEY")
     )
 
     token = os.environ["HF_TOKEN"][0:10]
     print("token: {0}".format(token))
-    print("variable: {0}".format(os.environ["HF_API_KEY"]))
+    print("variable: {0}".format(os.environ["HF_API_KEY"][0:10]))
 
     prompt = """<s>[INST] What is your favourite condiment?  [/INST]</s>"""
 
@@ -25,7 +25,7 @@ async def root():
 async def inference(input):
     client = InferenceClient(
         model="mistralai/Mistral-7B-Instruct-v0.1",
-        token=os.environ.get("HF_TOKEN")
+        token=os.environ.get("HF_API_KEY")
     )
     prompt = """<s>[INST] {0} [/INST]</s>""".format(input)
     print(prompt)
