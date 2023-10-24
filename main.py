@@ -19,8 +19,8 @@ import os
 
 def prepareVectorDatabase():
     loader = PyPDFLoader(
-        'files/Linkedin.pdf',
-        #'files/Thiago_Marafon_-_Senior_Engineering_Manager.pdf'
+        #'files/Linkedin.pdf',
+        'files/Thiago_Marafon_-_Senior_Engineering_Manager.pdf'
     )
     documents = loader.load()
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=300, chunk_overlap=100)
