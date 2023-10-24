@@ -12,11 +12,7 @@ def prepareVectorDatabase():
         'files/Linkedin.pdf'    
     )
     docs = loader.load()
-    print(docs[0].metadata)
-    return docs[0].page_content[:200]
-
-
-prepareVectorDatabase()
+    return docs[0].page_content[:500]
 
 async def streamInference(prompt):
     client = InferenceClient(
@@ -32,8 +28,7 @@ app = FastAPI()
 
 @app.get("/")
 async def example():
-    prompt = """[INST] Tell me a story about space conquer. [/INST]""".format(input)
-    return StreamingResponse(streamInference(prompt), media_type="text/plain")
+    return prepareVectorDatabase()
 
 @app.get("/{input}")
 async def inference(input):
