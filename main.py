@@ -25,7 +25,7 @@ def prepareVectorDatabase():
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=300, chunk_overlap=100)
     docs = text_splitter.split_documents(documents)
     embeddings = HuggingFaceHubEmbeddings()
-    db = Chroma.from_documents(texts, embeddings)
+    db = Chroma.from_documents(docs, embeddings)
     #TODO: use ContextualCompressionRetriever with MMR
     retriever = db.as_retriever(search_type="similarity", search_kwargs={"k": 3})
     llm = HuggingFaceHub(
