@@ -11,6 +11,9 @@ async def root():
         token=os.environ.get("HF_TOKEN")
     )
 
+    token = os.environ.get("HF_TOKEN")[0:10]
+    print("token: {0}".format(token))
+
     prompt = """<s>[INST] What is your favourite condiment?  [/INST]</s>"""
 
     res = client.text_generation(prompt, max_new_tokens=95)
