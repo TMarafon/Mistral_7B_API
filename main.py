@@ -33,11 +33,16 @@ def prepareVectorDatabase():
         repo_id="mistralai/Mistral-7B-Instruct-v0.1", 
         model_kwargs={"temperature":0.1, "max_new_tokens":250}
     )
+    compressor = LLMChainExtractor.from_llm(llm)
+    compression_retriever = ContextualCompressionRetriever(
+        base_compressor=compressor,
+        base_retriever=vectordb.as_retriever(search_type = "mmr")
+    )
     global qa 
     qa = RetrievalQA.from_chain_type(
         llm=llm, 
         chain_type="stuff", 
-        retriever=retriever, 
+        retriever=compression_retriever, 
         return_source_documents=True
     )
     return qa({"query": "Who is Thiago Marafon?"})
