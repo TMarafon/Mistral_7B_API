@@ -7,9 +7,9 @@ from langchain.document_loaders import OnlinePDFLoader
 import os
 
 def prepareVectorDatabase():
-    loader = OnlinePDFLoader([
+    loader = OnlinePDFLoader(
         'https://huggingface.co/spaces/tmarafon2/Mistral_7b_API/resolve/main/files/Linkedin.pdf'    
-    ])
+    )
     docs = loader.load()
     print(docs[0].metadata)
     return docs[0].page_content[:200]
