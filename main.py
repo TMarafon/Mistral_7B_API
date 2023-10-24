@@ -15,5 +15,6 @@ async def inference(input):
         token=os.environ.get("HF_TOKEN")
     )
     prompt = """<s>[INST] {0} [/INST]</s>""".format(input)
+    print(prompt)
     res = client.text_generation(prompt, max_new_tokens=95)
     return res
