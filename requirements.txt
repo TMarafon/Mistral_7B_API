@@ -3,6 +3,4 @@ uvicorn
 huggingface_hub
 chromadb
 langchain
-unstructured
-unstructured[local-inference]
 pypdf
