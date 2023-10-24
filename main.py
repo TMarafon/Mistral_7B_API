@@ -11,8 +11,9 @@ async def root():
         token=os.environ.get("HF_TOKEN")
     )
 
-    token = os.environ.get("HF_TOKEN")[0:10]
+    token = os.environ["HF_TOKEN"][0:10]
     print("token: {0}".format(token))
+    print("variable: {0}".format(os.environ["HF_API_KEY"]))
 
     prompt = """<s>[INST] What is your favourite condiment?  [/INST]</s>"""
 
