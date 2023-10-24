@@ -19,7 +19,7 @@ import os
 
 def prepareVectorDatabase():
     loader = PyPDFLoader(
-        #'files/Linkedin.pdf',
+        'files/Linkedin.pdf',
         'files/Thiago_Marafon_-_Senior_Engineering_Manager.pdf'
     )
     documents = loader.load()
