@@ -11,7 +11,7 @@ client = InferenceClient(
     token=os.environ.get("HF_TOKEN")
 )
 
-prompt = """<s>[INST] What is your favourite condiment?  [/INST]</s>"""
+prompt = """[INST] What is your favourite condiment?  [/INST]"""
 
 res = client.text_generation(prompt, max_new_tokens=95, details=True)
 print(res)
@@ -23,7 +23,7 @@ async def inference(input):
         model="mistralai/Mistral-7B-Instruct-v0.1",
         token=os.environ.get("HF_TOKEN")
     )
-    prompt = """<s>[INST] {0} [/INST]</s>""".format(input)
+    prompt = """[INST] {0} [/INST]""".format(input)
     print(prompt)
     res = client.text_generation(prompt, max_new_tokens=95)
     return res
