@@ -2,13 +2,14 @@ from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 from huggingface_hub import InferenceClient
 
-from langchain.document_loaders import OnlinePDFLoader
+from langchain.document_loaders import PyPDFLoader
+
 
 import os
 
 def prepareVectorDatabase():
-    loader = OnlinePDFLoader(
-        'https://drive.google.com/file/d/1_19aao3bQGHnEEJXe1V8ka6qiNWMdInH/view'    
+    loader = PyPDFLoader(
+        'files/Linkedin.pdf'    
     )
     docs = loader.load()
     print(docs[0].metadata)
