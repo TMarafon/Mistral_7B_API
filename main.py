@@ -4,18 +4,17 @@ import os
 
 app = FastAPI()
 
-#@app.get("/")
-#async def root():
-client = InferenceClient(
-    model="mistralai/Mistral-7B-Instruct-v0.1",
-    token=os.environ.get("HF_TOKEN")
-)
+@app.get("/")
+async def root():
+    client = InferenceClient(
+        model="mistralai/Mistral-7B-Instruct-v0.1",
+        token=os.environ.get("HF_TOKEN")
+    )
 
-prompt = """[INST] What is your favourite condiment?  [/INST]"""
+    prompt = """[INST] Hello world!  [/INST]"""
 
-res = client.text_generation(prompt, max_new_tokens=95)
-print(res)
-#    return {"message": res}
+    res = client.text_generation(prompt, max_new_tokens=95)
+    return res
 
 @app.get("/{input}")
 async def inference(input):
@@ -23,8 +22,8 @@ async def inference(input):
         model="mistralai/Mistral-7B-Instruct-v0.1",
         token=os.environ.get("HF_TOKEN")
     )
+    
     prompt = """[INST] {0} [/INST]""".format(input)
-    print(prompt)
     res = client.text_generation(prompt, max_new_tokens=95)
     return res
 
