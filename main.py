@@ -5,6 +5,7 @@ from huggingface_hub import InferenceClient
 from langchain.llms import HuggingFaceHub
 
 from langchain.document_loaders import PyPDFLoader
+from langchain.document_loaders import PyPDFDirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import HuggingFaceHubEmbeddings
 from langchain.vectorstores import Chroma
@@ -18,10 +19,7 @@ from langchain.chains import RetrievalQA
 import os
 
 def prepareVectorDatabase():
-    loader = PyPDFLoader(
-        'files/Linkedin.pdf',
-        'files/Thiago_Marafon_-_Senior_Engineering_Manager.pdf'
-    )
+    loader = PyPDFDirectoryLoader('files')
     documents = loader.load()
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=300, chunk_overlap=100)
     docs = text_splitter.split_documents(documents)
