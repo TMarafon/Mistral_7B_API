@@ -18,10 +18,10 @@ app = FastAPI()
 @app.get("/")
 async def root():
     prompt = """[INST] Tell me a story about space conquer. [/INST]""".format(input)
-    return StreamingResponse(streamInference(prompt))
+    return StreamingResponse(streamInference(prompt), media_type="application/octet-stream")
 
 @app.get("/{input}")
 async def inference(input):
     prompt = """[INST] {0} [/INST]""".format(input)
-    return StreamingResponse(streamInference(prompt))
+    return StreamingResponse(streamInference(prompt), media_type="application/octet-stream")
 
