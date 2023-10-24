@@ -8,7 +8,7 @@ import os
 
 def prepareVectorDatabase():
     loader = OnlinePDFLoader(
-        'https://huggingface.co/spaces/tmarafon2/Mistral_7b_API/resolve/main/files/Linkedin.pdf'    
+        'https://drive.google.com/file/d/1_19aao3bQGHnEEJXe1V8ka6qiNWMdInH/view'    
     )
     docs = loader.load()
     print(docs[0].metadata)
