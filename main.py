@@ -21,7 +21,7 @@ import os
 def prepareVectorDatabase():
     loader = PyPDFDirectoryLoader('files')
     documents = loader.load()
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=600, chunk_overlap=50)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=50)
     docs = text_splitter.split_documents(documents)
     
     embeddings = HuggingFaceHubEmbeddings()
@@ -76,4 +76,6 @@ async def example():
 async def inference(input):
     #prompt = """[INST] {0} [/INST]""".format(input)
     #return StreamingResponse(streamInference(prompt), media_type="text/plain")
+    if qa not in globals():
+        prepareVectorDatabase()
     return qa({"query": input})
