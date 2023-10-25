@@ -43,7 +43,7 @@ def prepareVectorDatabase():
     retriever = db.as_retriever(
         search_type = "mmr", search_kwargs={
             "k":4,
-            "score_threshold": .3
+            "score_threshold": .7
         }
     )
     global qa 
