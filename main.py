@@ -53,7 +53,7 @@ def prepareVectorDatabase():
         retriever=retriever, 
         return_source_documents=True
     )
-    return qa({"query": "Who is Thiago Marafon?"})
+    return "Ready!" #qa({"query": "Who is Thiago Marafon?"})
 
 
 async def streamInference(prompt):
@@ -76,6 +76,5 @@ async def example():
 async def inference(input):
     #prompt = """[INST] {0} [/INST]""".format(input)
     #return StreamingResponse(streamInference(prompt), media_type="text/plain")
-    if qa not in globals():
-        prepareVectorDatabase()
+    prepareVectorDatabase()
     return qa({"query": input})
