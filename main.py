@@ -22,7 +22,7 @@ def prepare_vector_database():
     
     loader = PyPDFDirectoryLoader('files')
     documents = loader.load()
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=850, chunk_overlap=0)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=850, chunk_overlap=200)
     docs = text_splitter.split_documents(documents)
     
     embeddings = HuggingFaceHubEmbeddings()
@@ -47,7 +47,7 @@ def prepare_vector_database():
     #)
 
     retriever = db.as_retriever(
-        search_type = "mmr", search_kwargs={
+        search_kwargs={
             "k":4,
             "score_threshold": .95
         }
