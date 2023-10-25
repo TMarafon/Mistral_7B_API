@@ -66,14 +66,14 @@ def prepareVectorDatabase():
     return "Ready!" #qa({"query": "Who is Thiago Marafon?"})
 
 prompts = [
-    "Summarize Thiago's career in a few words",
-    "Describe in bullet points Thiago's education",
-    "Describe in bullet points Thiago's work experiences",
-    "Describe in bullet points Thiago's certifications",
-    "Describe in Thiago's role at Youper Inc",
-    "Describe in Thiago's role at Softplan",
-    "Describe in Thiago's coding skills",
-    "Describe in Thiago's management skills",
+    "Summarize Thiago's career in a 250 words",
+    "Describe in bullet points Thiago's education, citing only the intitution names, degree, and period",
+    "Describe in bullet points Thiago's work experiences, citing only the companies' names, title and period",
+    "Describe in bullet points Thiago's certifications besides his degrees",
+    "Describe Thiago's role at Youper Inc only",
+    "Describe Thiago's role at Softplan only",
+    "Describe Thiago's coding skills only",
+    "Describe Thiago's management skills only",
 ]
 
 async def streamInference():
