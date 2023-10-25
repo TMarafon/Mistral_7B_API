@@ -44,7 +44,7 @@ def prepareVectorDatabase():
         search_type = "mmr", search_kwargs={
             "k":3,
             "score_threshold": .5
-        })
+        }
     )
     global qa 
     qa = RetrievalQA.from_chain_type(
