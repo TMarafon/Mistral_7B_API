@@ -36,7 +36,7 @@ def prepareVectorDatabase():
         base_compressor=compressor,
         base_retriever=db.as_retriever(
             search_type = "mmr", search_kwargs={
-                "k"=3,
+                "k":3,
                 "score_threshold": .5
             })
         )
