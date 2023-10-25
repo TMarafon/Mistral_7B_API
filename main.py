@@ -20,6 +20,9 @@ from langchain.chains import RetrievalQA
 import os
 
 def prepareVectorDatabase():
+    if 'qa' in globals():
+        return
+    
     loader = PyPDFDirectoryLoader('files')
     documents = loader.load()
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=0)
@@ -62,22 +65,31 @@ def prepareVectorDatabase():
     print('VectorDB ready!')
     return "Ready!" #qa({"query": "Who is Thiago Marafon?"})
 
+prompts = [
+    "Summarize Thiago's career in a few words",
+    "Describe in bullet points Thiago's education",
+    "Describe in bullet points Thiago's work experiences",
+    "Describe in bullet points Thiago's certifications",
+    "Describe in Thiago's role at Youper Inc",
+    "Describe in Thiago's role at Softplan",
+    "Describe in Thiago's coding skills",
+    "Describe in Thiago's management skills",
+]
 
-async def streamInference(prompt):
-    client = InferenceClient(
-        model="mistralai/Mistral-7B-Instruct-v0.1",
-        token=os.environ.get("HF_TOKEN")
-    )
-    
-    res = client.text_generation(prompt, max_new_tokens=200, stream=True, return_full_text=False)
-    for r in res: 
-      yield r
+async def streamInference():
+    for p in prompts:
+        result = qa({"query": p})
+        yield result["query"]
+        yield result["result"]
+
 
 app = FastAPI()
 
 @app.get("/")
-async def example():
-    return prepareVectorDatabase()
+async def root():
+    prepareVectorDatabase()
+    return StreamingResponse(streamInference(), media_type="text/plain")
+
 
 @app.get("/{input}")
 async def inference(input):
