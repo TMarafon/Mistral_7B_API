@@ -41,7 +41,7 @@ def prepareVectorDatabase():
     #        })
     #    )
     retriever = db.as_retriever(
-        search_kwargs={
+        search_type = "mmr", search_kwargs={
             "k":4,
             "score_threshold": .95
         }
