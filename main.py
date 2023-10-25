@@ -49,7 +49,7 @@ def prepareVectorDatabase():
     global qa 
     qa = RetrievalQA.from_chain_type(
         llm=llm, 
-        chain_type="refine", 
+        chain_type="map_reduce", 
         retriever=retriever, 
         return_source_documents=True
     )
