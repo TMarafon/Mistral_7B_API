@@ -16,16 +16,13 @@ from langchain.retrievers.multi_query import MultiQueryRetriever
 
 from langchain.chains import RetrievalQA
 
-
-import os
-
-def prepareVectorDatabase():
+def prepare_vector_database():
     if 'qa' in globals():
         return
     
     loader = PyPDFDirectoryLoader('files')
     documents = loader.load()
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=0)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=850, chunk_overlap=0)
     docs = text_splitter.split_documents(documents)
     
     embeddings = HuggingFaceHubEmbeddings()
@@ -57,26 +54,25 @@ def prepareVectorDatabase():
     )
     global qa 
     qa = RetrievalQA.from_chain_type(
-        llm=llm, 
-        chain_type="stuff", 
-        retriever=retriever, 
+        llm=llm,
+        chain_type="stuff",
+        retriever=retriever,
         return_source_documents=True
     )
     print('VectorDB ready!')
-    return "Ready!" #qa({"query": "Who is Thiago Marafon?"})
+    return "Ready!"
 
 prompts = [
     "Summarize Thiago's career in a 250 words",
-    "Describe in bullet points Thiago's education, citing only the intitution names, degree, and period",
-    "Describe in bullet points Thiago's work experiences, citing only the companies' names, title and period",
-    "Describe in bullet points Thiago's certifications besides his degrees",
-    "Describe Thiago's role at Youper Inc only",
-    "Describe Thiago's role at Softplan only",
-    "Describe Thiago's coding skills only",
-    "Describe Thiago's management skills only",
+    "Tell me in bullet points Thiago's education, citing only the intitution names, degree, and period",
+    "Tell me in bullet points Thiago's work experiences, citing only the companies' names, title and period",
+    "Tell me about Thiago's role at Youper Inc",
+    "Tell me about Thiago's role at Softplan",
+    "Tell me about Thiago's coding skills",
+    "Tell me about Thiago's management skills",
 ]
 
-async def streamInference():
+async def stream_inference():
     for p in prompts:
         result = qa({"query": p})
         yield result["query"]
@@ -89,14 +85,11 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    prepareVectorDatabase()
-    return StreamingResponse(streamInference(), media_type="text/plain")
+    prepare_vector_database()
+    return StreamingResponse(stream_inference(), media_type="text/plain")
 
 
 @app.get("/{input}")
 async def inference(input):
-    #prompt = """[INST] {0} [/INST]""".format(input)
-    #return StreamingResponse(streamInference(prompt), media_type="text/plain")
-    if 'qa' not in globals():
-        prepareVectorDatabase()
+    prepare_vector_database()
     return qa({"query": input})
