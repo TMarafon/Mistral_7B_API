@@ -80,7 +80,9 @@ async def streamInference():
     for p in prompts:
         result = qa({"query": p})
         yield result["query"]
+        yield "\n"
         yield result["result"]
+        yield "\n\n"
 
 
 app = FastAPI()
