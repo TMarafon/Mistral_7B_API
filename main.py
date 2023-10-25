@@ -12,6 +12,7 @@ from langchain.vectorstores import Chroma
 
 from langchain.retrievers import ContextualCompressionRetriever
 from langchain.retrievers.document_compressors import LLMChainExtractor
+from langchain.retrievers.multi_query import MultiQueryRetriever
 
 from langchain.chains import RetrievalQA
 
@@ -40,6 +41,11 @@ def prepareVectorDatabase():
     #            "score_threshold": .5
     #        })
     #    )
+
+    #retriever_from_llm = MultiQueryRetriever.from_llm(
+    #    retriever=db.as_retriever(), llm=llm
+    #)
+
     retriever = db.as_retriever(
         search_type = "mmr", search_kwargs={
             "k":4,
@@ -53,6 +59,7 @@ def prepareVectorDatabase():
         retriever=retriever, 
         return_source_documents=True
     )
+    print('VectorDB ready!')
     return "Ready!" #qa({"query": "Who is Thiago Marafon?"})
 
 
