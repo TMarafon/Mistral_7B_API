@@ -83,5 +83,6 @@ async def example():
 async def inference(input):
     #prompt = """[INST] {0} [/INST]""".format(input)
     #return StreamingResponse(streamInference(prompt), media_type="text/plain")
-    prepareVectorDatabase()
+    if 'qa' not in globals():
+        prepareVectorDatabase()
     return qa({"query": input})
