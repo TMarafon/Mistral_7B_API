@@ -21,21 +21,25 @@ import os
 def prepareVectorDatabase():
     loader = PyPDFDirectoryLoader('files')
     documents = loader.load()
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=300, chunk_overlap=100)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=100)
     docs = text_splitter.split_documents(documents)
+    
     embeddings = HuggingFaceHubEmbeddings()
     db = Chroma.from_documents(docs, embeddings)
-    #TODO: use ContextualCompressionRetriever with MMR
-    retriever = db.as_retriever(search_type="similarity", search_kwargs={"k": 3})
+    
     llm = HuggingFaceHub(
         repo_id="mistralai/Mistral-7B-Instruct-v0.1", 
-        model_kwargs={"temperature":0.1, "max_new_tokens":250}
+        model_kwargs={"temperature":0, "max_new_tokens":300}
     )
     compressor = LLMChainExtractor.from_llm(llm)
     compression_retriever = ContextualCompressionRetriever(
         base_compressor=compressor,
-        base_retriever=db.as_retriever(search_type = "mmr")
-    )
+        base_retriever=db.as_retriever(
+            search_type = "mmr", search_kwargs={
+                "k"=3,
+                "score_threshold": .5
+            })
+        )
     global qa 
     qa = RetrievalQA.from_chain_type(
         llm=llm, 
