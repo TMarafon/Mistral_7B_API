@@ -23,3 +23,6 @@ This project consists on an API hosted on HuggingFace Spaces that generates text
 - LLM: mistralai/Mistral-7B-Instruct-v0.1("temperature":0.1, "max_new_tokens":300)
 - Retriever: similarity search, top k=4, "score_threshold": .95
 - chain_type: stuff
+
+## Demo:
+https://tmarafon2-mistral-7b-api.hf.space/
