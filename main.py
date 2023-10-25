@@ -21,7 +21,7 @@ import os
 def prepareVectorDatabase():
     loader = PyPDFDirectoryLoader('files')
     documents = loader.load()
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1200, chunk_overlap=200)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1200, chunk_overlap=50)
     docs = text_splitter.split_documents(documents)
     
     embeddings = HuggingFaceHubEmbeddings()
