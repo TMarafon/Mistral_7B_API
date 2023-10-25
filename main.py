@@ -21,7 +21,7 @@ import os
 def prepareVectorDatabase():
     loader = PyPDFDirectoryLoader('files')
     documents = loader.load()
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=400, chunk_overlap=20)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=600, chunk_overlap=50)
     docs = text_splitter.split_documents(documents)
     
     embeddings = HuggingFaceHubEmbeddings()
@@ -43,7 +43,7 @@ def prepareVectorDatabase():
     retriever = db.as_retriever(
         search_kwargs={
             "k":4,
-            "score_threshold": .90
+            "score_threshold": .95
         }
     )
     global qa 
